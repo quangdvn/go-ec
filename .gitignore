@@ -1,0 +1,48 @@
+# Binaries for programs and tools
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.out
+
+# Build directories and binary output
+bin/
+build/
+
+# Go modules
+go.sum
+go.work
+go.work.sum
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Test binary
+*.test
+
+# Dependency directories (when using vendoring)
+vendor/
+
+# Debugging or profiling output
+*.prof
+*.trace
+*.pprof
+
+# Coverage files
+coverage.out
+*.cov
+
+/docs
