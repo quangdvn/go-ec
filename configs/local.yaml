@@ -1,0 +1,31 @@
+server:
+  port: 8082
+databases:
+  - user: admin
+    password: admin
+    host: localhost
+    dbname: go-ec
+  - user: dev
+    password: dev
+    host: localhost
+    dbname: go-ec
+security:
+  jwt:
+    key: quangdvn
+redis:
+  user: admin
+elasticsearch:
+  user: admin
+  password: admin
+  host: localhost
+  port: 9200
+rabbitmq:
+  user: admin
+  password: admin
+  host: localhost
+  port: 5672
+kafka:
+  user: admin
+  password: admin
+  host: localhost
+  port: 9092
