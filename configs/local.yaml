@@ -1,31 +1,22 @@
 server:
   port: 8082
-databases:
-  - user: admin
-    password: admin
-    host: localhost
-    dbname: go-ec
-  - user: dev
-    password: dev
-    host: localhost
-    dbname: go-ec
-security:
-  jwt:
-    key: quangdvn
-redis:
-  user: admin
-elasticsearch:
-  user: admin
-  password: admin
-  host: localhost
-  port: 9200
-rabbitmq:
-  user: admin
-  password: admin
-  host: localhost
-  port: 5672
-kafka:
-  user: admin
-  password: admin
-  host: localhost
-  port: 9092
+mysql:
+  host: 127.0.0.1
+  port: 8811
+  username: mysql
+  password: mysql
+  dbname: go-ec
+  # charset: utf8mb4
+  # collation: utf8mb4_general_ci
+  maxIdleConns: 10
+  maxOpenConns: 100
+  connMaxLifetime: 3600
+  connMaxIdleTime: 3600
+  # logMode: false
+logger:
+  log_level: debug
+  file_log_name: "./storages/logs/dev.001.log"
+  max_size: 500
+  max_backups: 3
+  max_age: 7
+  compress: true
