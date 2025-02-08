@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type TestUser struct {
 	ID   int    `gorm:"primaryKey"`
 	Name string `gorm:"size:255"`
 }
@@ -68,15 +68,15 @@ func BenchmarkMaxOpenConns1(b *testing.B) {
 // resetTable checks if the table exists, drops it if it does, and performs auto-migration.
 func resetTable(db *gorm.DB) {
 	// Check if the table exists
-	if db.Migrator().HasTable(&User{}) {
-		if err := db.Migrator().DropTable(&User{}); err != nil {
+	if db.Migrator().HasTable(&TestUser{}) {
+		if err := db.Migrator().DropTable(&TestUser{}); err != nil {
 			log.Fatalf("failed to drop table: %v", err)
 		}
 		log.Println("Table dropped successfully.")
 	}
 
 	// Auto-migrate the table
-	if err := db.AutoMigrate(&User{}); err != nil {
+	if err := db.AutoMigrate(&TestUser{}); err != nil {
 		log.Fatalf("failed to auto-migrate table: %v", err)
 	}
 	log.Println("Table auto-migrated successfully.")
@@ -84,13 +84,7 @@ func resetTable(db *gorm.DB) {
 
 // insertRecord inserts a record into the table for benchmarking.
 func insertRecord(b *testing.B, db *gorm.DB) {
-	// Example record struct (replace with your actual struct)
-	type User struct {
-		ID   int    `gorm:"primaryKey"`
-		Name string `gorm:"size:255"`
-	}
-
-	record := User{Name: "Benchmark User"}
+	record := TestUser{Name: "Benchmark User"}
 	if err := db.Create(&record).Error; err != nil {
 		b.Errorf("failed to insert record: %v", err)
 	}

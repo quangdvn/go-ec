@@ -4,40 +4,48 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	c "github.com/quangdvn/go-ec/internal/controllers"
-	"github.com/quangdvn/go-ec/internal/middlewares"
+	"github.com/quangdvn/go-ec/global"
+	"github.com/quangdvn/go-ec/internal/routers"
 )
 
-func AA() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		fmt.Println("Before AA")
-		c.Next()
-		fmt.Println("After AA")
-	}
-}
-
-func BB() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		fmt.Println("Before BB")
-		c.Next()
-		fmt.Println("After BB")
-	}
-}
-
-func CC(c *gin.Context) {
-	fmt.Println("Before CC")
-	c.Next()
-	fmt.Println("After CC")
-}
-
 func InitRouter() *gin.Engine {
-	r := gin.Default()
+	var r *gin.Engine
 
-	r.Use(middlewares.AuthMiddleware(), BB(), CC)
-	v1 := r.Group("/v1/2025")
+	if global.Config.Server.Mode == "dev" {
+		gin.SetMode(gin.DebugMode)
+		gin.ForceConsoleColor()
+		r = gin.Default()
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+		fmt.Println("Server mode: ", global.Config.Server.Mode)
+		r = gin.New()
+		// r.Use(gin.Logger())
+		// r.Use(gin.Recovery())
+		// r.Use(middlewares.Cors())
+		// r.Use(middlewares.RequestID())
+		// r.Use(middlewares.Timeout())
+		// r.Use(middlewares.RateLimit())
+	}
+
+	// Middlewares
+	// r.Use() // Logger
+	// r.Use() // CORS
+	// r.Use() // Limit Global
+	adminRouter := routers.RouterGroupApp.Admin
+	userRouter := routers.RouterGroupApp.User
+
+	MainGroup := r.Group("/v1/2025")
 	{
-		v1.GET("/ping", c.NewPongController().Pong)
-		v1.GET("/user/1", c.NewUserController().GetUserById)
+		MainGroup.GET("/healthCheck")
+	}
+	{
+		userRouter.InitUserRouter(MainGroup)
+		userRouter.InitProductRouter(MainGroup)
+
+	}
+	{
+		adminRouter.InitUserRouter(MainGroup)
+		adminRouter.InitAdminRouter(MainGroup)
 	}
 	return r
 }

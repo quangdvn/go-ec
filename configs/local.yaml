@@ -1,13 +1,14 @@
 server:
   port: 8082
+  mode: "dev"
 mysql:
-  host: 127.0.0.1
+  host: "localhost"
   port: 8811
-  username: mysql
-  password: mysql
-  dbname: go-ec
-  # charset: utf8mb4
-  # collation: utf8mb4_general_ci
+  username: "admin"
+  password: "mysql"
+  dbname: "go-ec"
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
   maxIdleConns: 10
   maxOpenConns: 100
   connMaxLifetime: 3600
@@ -20,3 +21,9 @@ logger:
   max_backups: 3
   max_age: 7
   compress: true
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  database: 0
+  pool_size: 100

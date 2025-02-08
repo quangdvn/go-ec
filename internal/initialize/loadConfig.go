@@ -21,6 +21,8 @@ func LoadConfig() {
 	if err := viper.Unmarshal(&global.Config); err != nil {
 		panic(fmt.Errorf("failed to unmarshal config %w", err))
 	}
+	
+	
 
 	// fmt.Println("Server port::", config.Server.Port)
 
