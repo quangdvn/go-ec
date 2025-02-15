@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: go-ec-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8002:8002'
+    restart: always
+    # environment:
+    # MYSQL_HOST: my-mysql # ✅ Reference existing MySQL container
+    # MYSQL_PORT: 3306
+    # MYSQL_USER: root
+    # MYSQL_PASSWORD: mypassword
+    # MYSQL_DB: go-ec
+    # REDIS_HOST: my-redis # ✅ Reference existing Redis container
+    # REDIS_PORT: 6379
+    # depends_on:
+    #   - qdvn-redis
+    #   - qdvn-mysql-master
+    networks:
+      - go-ec-network
+
+# docker network create go-ec-network
+# docker network connect go-ec-network qdvn-mysql-master
+# docker network connect go-ec-network qdvn-redis
+networks:
+  go-ec-network:
+    external: true

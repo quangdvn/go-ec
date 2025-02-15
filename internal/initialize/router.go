@@ -1,8 +1,6 @@
 package initialize
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/quangdvn/go-ec/global"
 	"github.com/quangdvn/go-ec/internal/routers"
@@ -17,7 +15,6 @@ func InitRouter() *gin.Engine {
 		r = gin.Default()
 	} else {
 		gin.SetMode(gin.ReleaseMode)
-		fmt.Println("Server mode: ", global.Config.Server.Mode)
 		r = gin.New()
 		// r.Use(gin.Logger())
 		// r.Use(gin.Recovery())

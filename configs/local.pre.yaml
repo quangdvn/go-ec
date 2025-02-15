@@ -2,8 +2,8 @@ server:
   port: 8082
   mode: "dev"
 mysql:
-  host: qdvn-mysql-master
-  port: 3306
+  host: "localhost"
+  port: 8811
   username: "admin"
   password: "mysql"
   dbname: "go-ec"
@@ -22,7 +22,7 @@ logger:
   max_age: 7
   compress: true
 redis:
-  host: qdvn-redis
+  host: 127.0.0.1
   port: 6379
   password: ""
   database: 0

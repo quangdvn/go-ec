@@ -11,5 +11,5 @@ func Run() {
 
 	r := InitRouter()
 
-	r.Run(":8082")
+	r.Run(":8002")
 }
