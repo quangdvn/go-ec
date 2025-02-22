@@ -1,6 +1,6 @@
 package model
 
-const TableNameGoCrmUserV2 = "go_crm_user"
+const TableNameGoCrmUserV2 = "go_crm_user_v2"
 
 // GoCrmUser Account
 type GoCrmUserV2 struct {

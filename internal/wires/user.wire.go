@@ -14,6 +14,7 @@ func InitUserRouterHandler() (*controllers.UserController, error) {
 		controllers.NewUserController,
 		services.NewUserService,
 		repositories.NewUserRepository,
+		repositories.NewAuthRepository,
 	)
 
 	return new(controllers.UserController), nil

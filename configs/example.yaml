@@ -1,0 +1,34 @@
+server:
+  port:
+  mode:
+mysql:
+  host:
+  port:
+  username:
+  password:
+  dbname:
+  charset:
+  collation:
+  maxIdleConns:
+  maxOpenConns:
+  connMaxLifetime:
+  connMaxIdleTime:
+  # logMode: false
+logger:
+  log_level:
+  file_log_name:
+  max_size:
+  max_backups:
+  max_age:
+  compress:
+redis:
+  host:
+  port:
+  password:
+  database:
+  pool_size:
+mail_server:
+  host:
+  port:
+  username:
+  password:

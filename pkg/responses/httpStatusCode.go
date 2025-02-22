@@ -4,7 +4,8 @@ const (
 	ErrCodeSuccess      = 20001 // Success
 	ErrCodeInvalidParam = 20003 // Invalid email
 	ErrCodeInvalidToken = 30001
-
+	ErrCodeInvalidOTP   = 30002
+	ErrCodeFailedEmail  = 30003
 	// Register code
 	ErrCodeUserIsExist = 40001 // User is exist
 	// ErrCodeUserIsNotActive                                                                                    = 40002 // User is not active
@@ -27,6 +28,8 @@ var msg = map[int]string{
 	ErrCodeSuccess:      "Success",
 	ErrCodeInvalidParam: "Invalid email",
 	ErrCodeInvalidToken: "Invalid token",
+	ErrCodeInvalidOTP:   "Invalid OTP",
+	ErrCodeFailedEmail:  "Failed to send email",
 
 	ErrCodeUserIsExist: "User is exist",
 }

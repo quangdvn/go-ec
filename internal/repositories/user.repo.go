@@ -1,5 +1,10 @@
 package repositories
 
+import (
+	"github.com/quangdvn/go-ec/global"
+	"github.com/quangdvn/go-ec/internal/model"
+)
+
 // type UserRepo struct {}
 
 // func NewUserRepo() *UserRepo {
@@ -24,5 +29,7 @@ func NewUserRepository() IUserRepository {
 }
 
 func (ur *userRepository) GetUserByEmail(email string) bool {
-	return true
+	// SELECT * FROM user where email = '??' ORDER BY email
+	row := global.Mdb.Table(TableNameGoCrmUser).Where("usr_email = ?", email).First(&model.GoCrmUser{}).RowsAffected
+	return row != NilNumber
 }

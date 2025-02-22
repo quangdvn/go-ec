@@ -49,3 +49,6 @@ coverage.out
 /logs
 
 *.json
+
+/configs/local.docker.yaml
+/configs/local.yaml

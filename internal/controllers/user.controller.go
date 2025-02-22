@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/quangdvn/go-ec/internal/services"
+	"github.com/quangdvn/go-ec/internal/vo"
 	"github.com/quangdvn/go-ec/pkg/responses"
 )
 
@@ -37,6 +38,11 @@ func NewUserController(userService services.IUserService) *UserController {
 
 // Controller -> Service -> Repo -> Models -> Repo
 func (uc *UserController) Register(c *gin.Context) {
-	result := uc.userService.Register("", "")
+	var params vo.UserRegistrationRequest
+	if err := c.ShouldBindJSON(&params); err != nil {
+		responses.ErrorResponse(c, responses.ErrCodeInvalidParam)
+		return
+	}
+	result := uc.userService.Register(params.Email, params.Purpose)
 	responses.SuccessResponse(c, result, nil)
 }

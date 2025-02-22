@@ -10,7 +10,11 @@ import (
 func LoadConfig() {
 	viper := viper.New()
 	viper.AddConfigPath("./configs/")
-	viper.SetConfigName("local")
+	configName := viper.GetString("CONFIG_NAME")
+	if configName == "" {
+		configName = "local" // Default if no ENV is set
+	}
+	viper.SetConfigName(configName)
 	viper.SetConfigType("yaml")
 
 	err := viper.ReadInConfig()
@@ -21,8 +25,6 @@ func LoadConfig() {
 	if err := viper.Unmarshal(&global.Config); err != nil {
 		panic(fmt.Errorf("failed to unmarshal config %w", err))
 	}
-	
-	
 
 	// fmt.Println("Server port::", config.Server.Port)
 
