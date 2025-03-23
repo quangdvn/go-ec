@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/quangdvn/go-ec/internal/mails"
 	"github.com/quangdvn/go-ec/internal/repositories"
 	"github.com/quangdvn/go-ec/internal/utils"
 	"github.com/quangdvn/go-ec/pkg/responses"
@@ -67,15 +68,20 @@ func (us *userService) Register(email string, purpose string) int {
 	}
 
 	// 4. Send email
-	// err = utils.SendTextEmail([]string{email}, "quangdvn@gmail.com", strconv.Itoa(otp))
-	err = utils.SendOTPTemplateEmail(
+	err = mails.SendOTPTemplateEmail(
 		[]string{email},
-		"quangdvn@gmail.com",
+		"quangdvn99@gmail.com",
 		"otp-auth.html",
 		map[string]interface{}{
 			"otp": strconv.Itoa(otp),
 		},
 	)
+	// err = mails.SendTextEmail(
+	// 	[]string{email},
+	// 	"quangdvn@gmail.com",
+	// 	strconv.Itoa(otp),
+	// )
+
 	if err != nil {
 		return responses.ErrCodeFailedEmail
 	}

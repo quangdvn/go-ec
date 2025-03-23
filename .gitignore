@@ -52,3 +52,4 @@ coverage.out
 
 /configs/local.docker.yaml
 /configs/local.yaml
+sendgrid.env
