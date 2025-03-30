@@ -5,7 +5,9 @@ func Run() {
 
 	InitLogger()
 
-	InitMySql()
+	// InitMySql()
+
+	InitMySqlC()
 
 	InitRedis()
 

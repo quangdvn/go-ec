@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"github.com/quangdvn/go-ec/global"
-	"github.com/quangdvn/go-ec/internal/model"
+	"github.com/quangdvn/go-ec/internal/database"
 )
 
 // type UserRepo struct {}
@@ -21,15 +21,23 @@ type IUserRepository interface {
 }
 
 type userRepository struct {
+	sqlc *database.Queries
 }
 
 // NewUserRepository creates a new instance of IUserRepository
 func NewUserRepository() IUserRepository {
-	return &userRepository{}
+	return &userRepository{
+		sqlc: database.New(global.Mdbc),
+	}
 }
 
 func (ur *userRepository) GetUserByEmail(email string) bool {
 	// SELECT * FROM user where email = '??' ORDER BY email
-	row := global.Mdb.Table(TableNameGoCrmUser).Where("usr_email = ?", email).First(&model.GoCrmUser{}).RowsAffected
-	return row != NilNumber
+	// row := global.Mdb.Table(TableNameGoCrmUser).Where("usr_email = ?", email).First(&model.GoCrmUser{}).RowsAffected
+	// return row != NilNumber
+	user, err := ur.sqlc.GetUserByEmailSQLC(ctx, email)
+	if err != nil {
+		return false
+	}
+	return user.UsrID != NilNumber
 }

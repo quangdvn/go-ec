@@ -24,9 +24,9 @@ func InitRedis() {
 		global.Logger.Error("redis init error", zap.Error(err))
 		panic(err)
 	}
-	global.Logger.Info("redis connected")
+	global.Logger.Info("Redis connected successfully")
 	global.Cache = cache
-	redisExample()
+	// redisExample()
 }
 
 func redisExample() {

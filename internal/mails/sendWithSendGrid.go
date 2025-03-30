@@ -23,7 +23,7 @@ func NewSendGridMailer() *SendGridMailer {
 }
 
 func (sg *SendGridMailer) SendEmail(to []string, from, subject, htmlBody string) error {
-	fmt.Println("Sending email via SendGrid, ", sg.ApiKey)
+	fmt.Println("Sending email via SendGrid...")
 	request := sendgrid.GetRequest(sg.ApiKey, "/v3/mail/send", "https://api.sendgrid.com")
 	request.Method = "POST"
 
