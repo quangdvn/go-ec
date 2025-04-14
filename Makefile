@@ -3,7 +3,7 @@ APP_NAME = server
 
 # Goose setting
 GOOSE_DRIVER ?= mysql
-GOOSE_DBSTRING = "admin:mysql@tcp(127.0.0.1:8811)/go-ec"
+GOOSE_DBSTRING ?= "admin:mysql@tcp(127.0.0.1:8811)/go-ec"
 GOOSE_MIGRATION_DIR ?= sql/schemas
 
 dev:
@@ -18,18 +18,28 @@ run:
 kill:
 	docker compose kill
 
-up:
+docker_up:
 	docker start qdvn-redis && docker start qdvn-mysql-master \
 	&& until docker exec qdvn-mysql-master mysqladmin ping -h "localhost" --silent; do echo "Waiting for MySQL..."; sleep 2; done \
 	&& until docker exec qdvn-redis redis-cli ping | grep PONG > /dev/null; do echo "Waiting for Redis..."; sleep 2; done \
 	&& docker compose up -d
 
-down:
+docker_build:
+	docker compose up -d --build
+	docker compose ps
+
+docker_down:
 	docker compose down && docker stop qdvn-redis && docker stop qdvn-mysql-master
 
 .PHONY: run
 
 .PHONE: air
+
+goose_create_migration:
+	@goose -dir=$(GOOSE_MIGRATION_DIR) create $(name) sql
+
+goose_up_by_one:
+	@GOOSE_DRIVER=$(GOOSE_DRIVER) GOOSE_DBSTRING=$(GOOSE_DBSTRING) goose -dir=$(GOOSE_MIGRATION_DIR) up-by-one
 
 goose_up:
 	@GOOSE_DRIVER=$(GOOSE_DRIVER) GOOSE_DBSTRING=$(GOOSE_DBSTRING) goose -dir=$(GOOSE_MIGRATION_DIR) up
@@ -39,3 +49,6 @@ goose_down:
 
 goose_reset:
 	@GOOSE_DRIVER=$(GOOSE_DRIVER) GOOSE_DBSTRING=$(GOOSE_DBSTRING) goose -dir=$(GOOSE_MIGRATION_DIR) reset
+
+sql_gen:
+	sqlc generate

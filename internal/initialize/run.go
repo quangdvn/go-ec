@@ -9,6 +9,8 @@ func Run() {
 
 	InitMySqlC()
 
+	InitServiceInterfaces()
+
 	InitRedis()
 
 	r := InitRouter()

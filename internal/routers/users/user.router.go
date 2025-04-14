@@ -2,6 +2,7 @@ package users
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/quangdvn/go-ec/internal/controllers/account"
 	"github.com/quangdvn/go-ec/internal/wires"
 )
 
@@ -20,6 +21,7 @@ func (pr *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	userRouterPublic := Router.Group("/user")
 	{
 		userRouterPublic.POST("/register", userController.Register)
+		userRouterPublic.POST("/login", account.LoginController.Login)
 		userRouterPublic.POST("/otp")
 	}
 	// Private

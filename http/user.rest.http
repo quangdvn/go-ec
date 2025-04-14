@@ -8,3 +8,6 @@ Content-Type: application/json
   "email": "quangdvn99@gmail.com",
   "purpose": "test"
 }
+### User login
+POST {{baseUrl}}/user/login
+Content-Type: application/json
